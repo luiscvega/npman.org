@@ -1,11 +1,12 @@
 extends ../../layouts/guest
 
 block content
-  h1= name
-  form(action="/package" method="POST")
-    input(type="hidden" name="manual[name]" value="#{name}")
+  h1= package.name
+  form(action="/package/#{package.name}" method="POST")
+    input(type="hidden" name="manual[name]" value="#{package.name}")
 
     .form-group
       textarea(name="manual[content]").form-control
 
+    a.btn.btn-default.btn-lg(href="/package/#{package.name}") Cancel
     button(type="submit").btn.btn-primary.btn-lg Create Manual

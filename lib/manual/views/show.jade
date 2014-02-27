@@ -1,17 +1,22 @@
 extends ../../layouts/guest
 
 block content
-  h1= info.name
-  p= info.description
+  h1= package.name
+  p= package.description
 
-  dl.dl-horizontal
-    dt Version:
-    dd= version
-    dt Author:
-    dd= info.author
+  div
+    dl.dl-horizontal
+      dt Version:
+      dd= package.version
+      dt Author:
+      dd= package.author
 
-  a(href="/package/#{manual.name}/edit").btn.btn-primary Edit Manual
+  if manual
+    a(href="/package/#{package.name}/edit").btn.btn-primary Edit Manual
 
-  hr
-  #manual-content
-    != md(manual.content)
+    hr
+
+    #manual-content
+      != md(manual.content)
+  else
+    a.btn.btn-primary(href="/package/#{package.name}/new") Add one now
