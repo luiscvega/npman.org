@@ -6,8 +6,7 @@ block content
     input(type="hidden" name="_method" value="PUT")
 
     .form-group
-      textarea(name="manual[content]" rows=30).form-control
-        = manual.content
+      textarea(name="manual[content]" rows=30).form-control.= manual.content
 
     a.btn.btn-default.btn-lg(href="/package/#{package.name}") Back
     button(type="submit").btn.btn-primary.btn-lg Save
