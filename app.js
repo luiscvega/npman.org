@@ -9,6 +9,10 @@ app.set("view engine", "jade");
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/:name", function (req, res) {
+  res.redirect("/package/" + req.params.name);
+});
+
 app.use("/package", package)
 
 app.get("/", function (req, res) {
