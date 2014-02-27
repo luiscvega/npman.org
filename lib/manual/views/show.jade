@@ -6,10 +6,15 @@ block content
 
   div
     dl.dl-horizontal
-      dt Version:
+      dt Latest Version:
       dd= package.version
-      dt Author:
-      dd= package.author
+
+      if package.author
+        dt Author:
+        dd= package.author
+
+      dt Maintainer:
+      dd= package.maintainer
 
   if manual
     a(href="/package/#{package.name}/edit").btn.btn-primary Edit Manual
