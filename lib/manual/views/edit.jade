@@ -1,0 +1,13 @@
+extends ../../layouts/guest
+
+block content
+  h1= manual.name
+  form(action="/package" method="POST")
+    input(type="hidden" name="_method" value="PUT")
+    input(type="hidden" name="manual[name]" value="#{manual.name}")
+
+    .form-group
+      textarea(name="manual[content]" rows=30).form-control
+        = manual.content
+
+    button(type="submit").btn.btn-primary.btn-lg Save

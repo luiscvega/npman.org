@@ -1,0 +1,17 @@
+extends ../../layouts/guest
+
+block content
+  h1= info.name
+  p= info.description
+
+  dl.dl-horizontal
+    dt Version:
+    dd= version
+    dt Author:
+    dd= info.author
+
+  a(href="/package/#{manual.name}/edit").btn.btn-primary Edit Manual
+
+  hr
+  #manual-content
+    != md(manual.content)
