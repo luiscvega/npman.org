@@ -14,7 +14,7 @@ app.post("/", function (req, res) {
     if (err) return next(err);
 
     if (data && data.password === req.body.password) {
-      req.session.username = data.username
+      req.session.username = data.username;
       res.redirect("/");
     } else {
       res.render("login");
