@@ -29,13 +29,17 @@ html
                   p= user.username
                   #account-actions
                     a(href="#") Edit Profile
-                    &nbsp;
-                    ="|"
-                    &nbsp;
+                    | &nbsp;|&nbsp;
                     a(href="/logout") Log Out
 
             else
-              a(href="/login").btn.btn-primary.btn-sm.btn-block Login
+              img(src="https://secure.gravatar.com/avatar/avatar.jpg?s=50").pull-left
+              .media-body
+                #account
+                  #account-actions
+                    a(href="/signup") Create Account
+                    | &nbsp;|&nbsp;
+                    a(href="/login") Login
 
   script(src="/js/codemirror.js")
   script(type='text/javascript').
