@@ -9,7 +9,15 @@ html
 
   body
     .container
-      block content
+      .col-sm-9
+        block content
+
+      .col-sm-3
+        .well.well-sm
+          if (user)
+            = user.username
+          else
+            a(href="/login").btn.btn-primary.btn-sm.btn-block Login
 
   script(src="/js/codemirror.js")
   script(type='text/javascript').

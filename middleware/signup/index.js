@@ -15,9 +15,7 @@ app.post("/", function (req, res) {
   user.save(function (err, data) {
     if (err) return next(err);
 
-    req.session.userId = data.id
-
-    console.log(req.session);
+    req.session.username = data.username
 
     res.redirect("/");
   });
