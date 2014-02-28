@@ -4,6 +4,7 @@ var md = require("marked");
 var npm = require("npm");
 
 app.set("views", __dirname + "/views");
+app.locals.pretty = true;
 
 app.all("/:name/:command?", function (req, res, next) {
   var package = req.package;

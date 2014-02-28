@@ -14,10 +14,21 @@ html
 
       .col-sm-3
         .well.well-sm
-          if (user)
-            = user.username
-          else
-            a(href="/login").btn.btn-primary.btn-sm.btn-block Login
+          .media
+            if (user)
+              img(src="https://secure.gravatar.com/avatar/efc17c527bd56f6f44db66fb0d8ceaf0?s=50").pull-left
+              .media-body
+                #account
+                  p= user.username
+                  #account-actions
+                    a(href="#") Edit Profile
+                    &nbsp;
+                    ="|"
+                    &nbsp;
+                    a(href="/logout") Log Out
+
+            else
+              a(href="/login").btn.btn-primary.btn-sm.btn-block Login
 
   script(src="/js/codemirror.js")
   script(type='text/javascript').

@@ -1,3 +1,12 @@
 body {
   padding: 50px 0;
 }
+
+#account {
+  size: 16px;
+}
+
+#account a {
+  font-size: 12px;
+  color: #000;
+}

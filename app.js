@@ -23,6 +23,11 @@ app.use(user);
 app.use("/signup", signup);
 app.use("/login", login);
 
+app.get("/logout", function (req, res) {
+  req.session = null;
+  res.redirect("/");
+});
+
 app.get("/:name", function (req, res) {
   res.redirect("/package/" + req.params.name);
 });
