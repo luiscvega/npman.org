@@ -1,6 +1,6 @@
 var express = require("express");
 var app = module.exports = express(); 
-var npm = require("../../lib/npm");
+var npm = require("./lib/npm");
 var manual = require("../manual");
 
 var model = exports.model = require("./model");
