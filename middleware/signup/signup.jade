@@ -1,6 +1,12 @@
 extends ../../views/layout
 
 block content
+  if errors
+    .alert.alert-warning
+      ul
+        each error in errors
+          li= error
+
   .col-sm-6.col-sm-offset-3
     form(method="POST").form-horizontal
       .form-group

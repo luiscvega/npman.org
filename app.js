@@ -1,3 +1,4 @@
+var error = require("./middleware/error");
 var manual = require("./middleware/manual");
 var package = require("./middleware/package");
 var user = require("./middleware/user");
@@ -41,6 +42,5 @@ app.get("/about", function (req, res) {
 app.get("/:name", function (req, res) {
   res.redirect("/package/" + req.params.name);
 });
-
 
 app.listen(3000);
