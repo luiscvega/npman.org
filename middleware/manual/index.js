@@ -4,10 +4,6 @@ var md = require("marked");
 var npm = require("npm");
 
 app.set("views", __dirname + "/views");
-app.set("view engine", "jade");
-app.locals.pretty = true;
-app.use(express.bodyParser());
-app.use(express.methodOverride());
 
 app.all("/:name/:command?", function (req, res, next) {
   var package = req.package;

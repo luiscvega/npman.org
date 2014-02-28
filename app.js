@@ -1,13 +1,27 @@
-var manual = require("./lib/manual");
-var package = require("./lib/package");
+var manual = require("./middleware/manual");
+var package = require("./middleware/package");
+var user = require("./middleware/user");
+var signup = require("./middleware/signup");
+var login = require("./middleware/login");
+
 var express = require("express");
 var path = require("path");
 var app = express();
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "jade");
+app.locals.pretty = true;
 
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.cookieSession({ secret: "some secret here" }));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(user);
+
+app.use("/signup", signup);
+app.use("/login", login);
 
 app.get("/:name", function (req, res) {
   res.redirect("/package/" + req.params.name);

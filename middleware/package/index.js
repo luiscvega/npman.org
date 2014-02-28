@@ -3,6 +3,8 @@ var app = module.exports = express();
 var npm = require("../npm");
 var manual = require("../manual");
 
+var model = exports.model = require("./model");
+
 app.set("views", __dirname + "/views");
 app.set("view engine", "jade");
 app.locals.pretty = true;
@@ -40,5 +42,3 @@ app.all("/:name/:command?", function (req, res, next) {
 });
 
 app.use(manual);
-
-var model = exports.model = require("./model");
