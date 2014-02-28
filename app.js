@@ -28,14 +28,19 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.get("/:name", function (req, res) {
-  res.redirect("/package/" + req.params.name);
-});
-
 app.use("/package", package)
 
 app.get("/", function (req, res) {
   res.render("index");
 });
+
+app.get("/about", function (req, res) {
+  res.render("about");
+});
+
+app.get("/:name", function (req, res) {
+  res.redirect("/package/" + req.params.name);
+});
+
 
 app.listen(3000);

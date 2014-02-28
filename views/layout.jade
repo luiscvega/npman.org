@@ -7,4 +7,38 @@ html
 
   body
     .container
-      block content
+      .col-sm-9
+        block content
+
+      .col-sm-3
+        #navbar
+          ul.pull-right.list-unstyled.list-inline
+            li: a(href="/") Home
+            li: a(href="/about") About
+
+        .clearfix
+
+        .well.well-sm
+          .media
+            if (user)
+              img(src="https://secure.gravatar.com/avatar/efc17c527bd56f6f44db66fb0d8ceaf0?s=50").pull-left
+              .media-body
+                #account
+                  p= user.username
+                  #account-actions
+                    a(href="#") Edit Profile
+                    &nbsp;
+                    ="|"
+                    &nbsp;
+                    a(href="/logout") Log Out
+
+            else
+              img(src="https://secure.gravatar.com/avatar/avatar.jpg?s=50").pull-left
+              .media-body
+                #account
+                  #account-actions
+                    a(href="#") Create Account
+                    &nbsp;
+                    ="|"
+                    &nbsp;
+                    a(href="/logout") Login

@@ -13,6 +13,13 @@ html
         block content
 
       .col-sm-3
+        #navbar
+          ul.pull-right.list-unstyled.list-inline
+            li: a(href="/") Home
+            li: a(href="/about") About
+
+        .clearfix
+
         .well.well-sm
           .media
             if (user)
