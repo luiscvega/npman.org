@@ -2,16 +2,24 @@ var outflow = require("./outflow");
 var encryptPassword = require("../encrypt-password");
 var User = require("../../../user/model");
 
-function userUnique(attributes, callback, next) {
+function usernameUnique(attributes, callback, next) {
   User.findOne({ where: { username: attributes.username } }, function (err, data) {
     if (err) return callback(err);
-    if (data) return next("User already exists");
+    if (data) return next("Username is already taken.");
+    next();
+  });
+};
+
+function emailUnique(attributes, callback, next) {
+  User.findOne({ where: { email: attributes.email } }, function (err, data) {
+    if (err) return callback(err);
+    if (data) return next("Email is already taken.");
     next();
   });
 };
 
 module.exports = outflow({
-  asyncValidations: [userUnique],
+  asyncValidations: [usernameUnique, emailUnique],
   syncValidations: [
     {
       assertion: function (attributes) { return attributes.password.length > 8 },
