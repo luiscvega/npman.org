@@ -21,10 +21,11 @@ module.exports = function (args) {
 
       if (!asyncValidation) {
         if (error.messages.length > 0) {
-          return callback(error, null);
+          callback(error);
         } else {
-          return execute(attributes, callback);
+          execute(attributes, callback);
         };
+        return;
       };
 
       try {
