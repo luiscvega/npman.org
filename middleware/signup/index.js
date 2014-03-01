@@ -16,4 +16,10 @@ app.post("/", function (req, res, next) {
   });
 });
 
-app.use(createUser.error("signup"));
+app.use(function (err, req, res, next) {
+  if (err.toString() === "Error: Outflow") {
+    return res.render("signup", { errors: err.messages })
+  };
+
+  next(err);
+});

@@ -1,37 +1,24 @@
+var outflow = require("./outflow");
 var encryptPassword = require("../encrypt-password");
 var User = require("../../../user/model");
 
-var createUser = function (attributes, callback) {
-  var error = new Error("Outflow");
-  error.messages = []
+module.exports = outflow({
+  validations: [
+    {
+      assertion: function (attributes) { return attributes.password.length > 8 },
+      message: "Password is too short."
+    },
+    {
+      assertion: function (attributes) { return attributes.username.length != 0 },
+      message: "Username cannot be blank."
+    }
+  ],
 
-  if (attributes.password.length < 8) {
-    error.messages.push("Password is too short.");
-  };
-
-  if (attributes.username.length == 0) {
-    error.messages.push("Username cannot be blank.");
-  };
-
-  if (error) {
-    return callback(error, null);
-  };
-
-  encryptPassword(attributes, function (err, attributes) {
-    User(attributes).save(function (err, data) {
-      callback(null, data);
+  execute: function (attributes, callback) {
+    encryptPassword(attributes, function (err, attributes) {
+      User(attributes).save(function (err, data) {
+        callback(null, data);
+      });
     });
-  });
-};
-
-createUser.error = function (template) {
-  return function (err, req, res, next) {
-    if (err.toString() === "Error: Outflow") {
-      return res.render(template, { errors: err.messages })
-    };
-
-    next(err);
   }
-};
-
-module.exports = createUser;
+});
