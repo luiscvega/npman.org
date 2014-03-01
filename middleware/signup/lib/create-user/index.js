@@ -4,7 +4,11 @@ var User = require("../../../user/model");
 
 var createUser = outflow(function (attributes, callback) {
   encryptPassword(attributes, function (err, attributes) {
+    if (err) return callback(err);
+
     User(attributes).save(function (err, data) {
+      if (err) return callback(err);
+
       callback(null, data);
     });
   });
