@@ -1,4 +1,4 @@
-var outflow = require("./outflow");
+var outflow = require("../../../../lib/outflow");
 var encryptPassword = require("../encrypt-password");
 var User = require("../../../user/model");
 
@@ -15,7 +15,7 @@ var createUser = outflow(function (attributes, callback) {
 });
 
 createUser.validateSync(function (attributes){
-  return attributes.username.length != 0;
+  return attributes.username.length > 8;
 }, "Password is too short.");
 
 createUser.validateSync(function (attributes){
