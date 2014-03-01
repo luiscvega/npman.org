@@ -1,28 +1,24 @@
-module.exports = outflow;
-
-function outflow(args) {
+module.exports = function (args) {
   var execute = args.execute;
   var syncValidations = args.syncValidations;
   var asyncValidations = args.asyncValidations;
-  var error = new Error("Outflow");
-  error.messages = [];
 
   function flow(attributes, callback) {
     var index = 0;
+    var error = new Error("Outflow");
+    error.messages = [];
+
     syncValidations.forEach(function (validation) {
       if (!validation.assertion(attributes)) {
         error.messages.push(validation.message);
       };
     });
 
-    function next(err) {
+    function nextAsyncValidation(err) {
       var asyncValidation = asyncValidations[index++];
 
-      if (err) {
-        error.messages.push(err);
-      };
+      if (err) error.messages.push(err);
 
-      // all done
       if (!asyncValidation) {
         if (error.messages.length > 0) {
           return callback(error, null);
@@ -32,13 +28,13 @@ function outflow(args) {
       };
 
       try {
-        asyncValidation.assertion(attributes, callback, next);
+        asyncValidation(attributes, callback, nextAsyncValidation);
       } catch (e) {
         return callback(e);
       };
     };
 
-    next();
+    nextAsyncValidation();
   };
 
   flow.error = function (template) {
