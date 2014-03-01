@@ -23,7 +23,7 @@ html
         .well.well-sm
           .media
             if (user)
-              img(src="https://secure.gravatar.com/avatar/efc17c527bd56f6f44db66fb0d8ceaf0?s=50").pull-left
+              img(src="#{user.gravatar()}?s=50").pull-left
               .media-body
                 #account
                   p= user.username
