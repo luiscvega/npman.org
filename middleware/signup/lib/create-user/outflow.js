@@ -1,7 +1,6 @@
-module.exports = function (args) {
-  var execute = args.execute;
-  var syncValidations = args.syncValidations;
-  var asyncValidations = args.asyncValidations;
+module.exports = function (execute) {
+  var syncValidations = [];
+  var asyncValidations = [];
 
   function flow(attributes, callback) {
     var index = 0;
@@ -36,6 +35,14 @@ module.exports = function (args) {
     };
 
     nextAsyncValidation();
+  };
+
+  flow.validateSync = function (assertion, message) {
+    syncValidations.push({ assertion: assertion, message: message });
+  };
+
+  flow.validate = function (thing) {
+    asyncValidations.push(thing);
   };
 
   flow.error = function (template) {
