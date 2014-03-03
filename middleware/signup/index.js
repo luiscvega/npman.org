@@ -15,5 +15,4 @@ app.post("/", function (req, res, next) {
     res.redirect("/");
   });
 });
-
 app.use(createUser.error("signup"));

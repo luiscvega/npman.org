@@ -14,11 +14,11 @@ var createUser = outflow(function (attributes, callback) {
   });
 });
 
-createUser.validateSync(function (attributes){
+createUser.validateSync(function (attributes) {
   return attributes.username.length > 8;
 }, "Password is too short.");
 
-createUser.validateSync(function (attributes){
+createUser.validateSync(function (attributes) {
   return attributes.email.length != 0;
 }, "Email cannot be blank.");
 
