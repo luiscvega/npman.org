@@ -17,10 +17,15 @@ app.all("/:name/:command?", function (req, res, next) {
 });
 
 app.get("/:name", function (req, res) {
-  res.render("show", {
-    package: req.package,
-    manual: req.manual,
-    md: md
+  var package = req.package;
+
+  package.versions(function (err, versions) {
+    res.render("show", {
+      package: req.package,
+      versions: versions,
+      manual: req.manual,
+      md: md
+    });
   });
 });
 

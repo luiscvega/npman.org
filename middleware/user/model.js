@@ -1,6 +1,6 @@
 var Schema = require("jugglingdb").Schema;
 var schema = new Schema("redis", { port: 6379 });
-var md5 = require("crypto").createHash("md5");
+var crypto = require("crypto");
 
 var User = schema.define("User", {
   username: { type: String, index: true },
@@ -9,7 +9,7 @@ var User = schema.define("User", {
 });
 
 User.prototype.gravatar = function () {
-  var gravatar = "https://secure.gravatar.com/avatar/" + md5.update(this.email).digest("hex") + ".jpg";
+  var gravatar = "https://secure.gravatar.com/avatar/" + crypto.createHash("md5").update(this.email).digest("hex") + ".jpg";
   return gravatar;
 };
 

@@ -34,9 +34,9 @@ createUser.validate(function usernameUnique(attributes, callback, next) {
   });
 });
 
-createUser.validate(function emailUnique(attributes, callback, next) {
-  User.findOne({ where: { email: attributes.email } }, function (err, data) {
-    if (err) return callback(err);
+createUser.validate(function emailUnique(attrs, done, next) {
+  User.findOne({ where: { email: attrs.email } }, function (err, data) {
+    if (err) return done(err);
     if (data) return next("Email is already taken.");
     next();
   });

@@ -4,17 +4,18 @@ block content
   h1= package.name
   p= package.description
 
-  div
-    dl.dl-horizontal
-      dt Latest Version:
-      dd= package.version
+  dl.dl-horizontal
+    if package.author
+      dt Author:
+      dd= package.author
 
-      if package.author
-        dt Author:
-        dd= package.author
+    dt Maintainer:
+    dd= package.maintainer
 
-      dt Maintainer:
-      dd= package.maintainer
+  h3 Versions
+  ul
+    each version in versions
+      li= version.number
 
   if manual
     a(href="/package/#{package.name}/edit").btn.btn-primary Edit Manual
