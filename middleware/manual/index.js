@@ -21,7 +21,7 @@ app.get("/:name", function (req, res) {
 
   package.versions(function (err, versions) {
     res.render("show", {
-      package: req.package,
+      package: package,
       versions: versions,
       manual: req.manual,
       md: md

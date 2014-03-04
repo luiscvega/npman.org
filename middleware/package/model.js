@@ -11,4 +11,10 @@ var Package = schema.define("Package", {
 
 Package.hasMany(Version, { as: "versions", foreignKey: "packageId" });
 
+Package.prototype.latestVersion = function (done) {
+  this.versions(function (err, versions) {
+   return done(null, versions[versions.length - 1]);
+  });
+};
+
 module.exports = Package;

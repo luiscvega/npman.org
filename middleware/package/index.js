@@ -1,6 +1,7 @@
 var express = require("express");
 var app = module.exports = express(); 
 var npm = require("./lib/npm");
+var md = require("marked");
 var manual = require("../manual");
 
 var Package = exports.model = require("./model");
@@ -31,7 +32,7 @@ app.all("/:name/:command?", function (req, res, next) {
     var package = Package({
       name: info.name,
       author: info.author,
-      maintainer: info.maintainers,
+      maintainer: info.maintainers
     });
 
     package.save(function (err, data) {
@@ -53,12 +54,52 @@ app.all("/:name/:command?", function (req, res, next) {
 });
 
 app.all("/:name/update", function (req, res, next) {
-  npm(name, function (err, data) {
-    var version = Object.keys(data)[0];
+  var package = req.package;
 
-    if (req.package.version != version) {
+  npm(package.name, function (err, data) {
+    var versionNumber = Object.keys(data)[0];
 
-    };
+    package.latestVersion(function (err, version) {
+      if (version.number != versionNumber) {
+        package.latestVersion(function (err, version) {
+          if (version.number != versionNumber) {
+            var versionNumber = Object.keys(data)[0];
+            var info = data[versionNumber];
+            var package = Package({
+                name: info.name,
+                author: info.author,
+                maintainer: info.maintainers
+            });
+
+            package.save(function (err, data) {
+              if (err) return next(err);
+
+              req.package = data;
+
+              var version = Version({
+                packageId: data.id,
+                number: versionNumber
+              });
+
+              version.save(function (err, data) {
+                if (err) return next(err);
+                next();
+              });
+            });
+          };
+        });
+      } else {
+        package.versions(function (err, versions) {
+          res.render("../../manual/views/show", {
+            package: package,
+            versions: versions,
+            manual: req.manual,
+            md: md,
+            errors: ["Version is latest."]
+          });
+        });
+      };
+    });
   });
 });
 

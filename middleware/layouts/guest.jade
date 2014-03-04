@@ -10,6 +10,12 @@ html
   body
     .container
       .col-sm-9
+        if errors
+          .alert.alert-warning
+            ul
+              each error in errors
+                li= error
+
         block content
 
       .col-sm-3
